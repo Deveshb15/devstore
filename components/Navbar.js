@@ -6,7 +6,6 @@ import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
 
-	const [navbarOpen, setNavbarOpen] = React.useState(false);
 	const { user, logout } = useAuth();
 	const router = useRouter();
 
@@ -34,8 +33,7 @@ const Navbar = () => {
 					</div>
 					<div
 						className={
-							"lg:flex flex-grow items-center" +
-							(navbarOpen ? " flex" : " hidden")
+							"lg:flex flex-grow items-center flex"
 						}
 						id="example-navbar-danger"
 					>

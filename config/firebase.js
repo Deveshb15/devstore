@@ -1,5 +1,6 @@
 import {initializeApp} from 'firebase/app'
 import { getAuth } from 'firebase/auth'
+import {collection, getFirestore, FieldValue} from 'firebase/firestore'
 
 const app = initializeApp({
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -10,5 +11,16 @@ const app = initializeApp({
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 })
 
-export default app
+const db = getFirestore()
+export const database = {
+    folders: collection(db, 'folders'),
+    files: collection(db, 'files'),
+    formatDoc: (doc) => {
+        return {
+            id: doc.id,
+            ...doc.data(),
+        }
+    }
+}
 export const auth = getAuth()
+export default app
