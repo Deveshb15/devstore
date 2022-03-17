@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
 
 	const { user, logout } = useAuth();
+	// console.log(user)
 	const router = useRouter();
 
 	const logoutHandler = async () => {
@@ -22,7 +23,7 @@ const Navbar = () => {
 		<>
 			<nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-white text-black mb-3 shadow-md">
 				<div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-					<div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+					<div className="w-full relative flex justify-between items-center lg:w-auto lg:static lg:block lg:justify-start">
 						{/* eslint-disable-next-line @next/next/link-passhref */}
 						<Link
 							href="/"
@@ -37,7 +38,7 @@ const Navbar = () => {
 						}
 						id="example-navbar-danger"
 					>
-						<ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+						<ul className="flex flex-col items-center justify-center lg:flex-row list-none lg:ml-auto">
 							{user ? (
 								<>
 									<li className="nav-item mx-2">
@@ -54,6 +55,13 @@ const Navbar = () => {
 											className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
 										>
 											Logout
+										</button>
+									</li>
+									<li className="nav-item mx-2">
+										<button
+											className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
+										>
+											{user.email}
 										</button>
 									</li>
 								</>

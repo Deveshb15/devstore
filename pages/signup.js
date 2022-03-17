@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { useRouter } from 'next/router'
 
 const Login = () => {
 
     const {user, signup} = useAuth()
     // console.log(user)
+
+    const router = useRouter()
 
     const [data, setData] = useState({
         email: '',
@@ -17,6 +20,7 @@ const Login = () => {
 
         try {
             await signup(data.email, data.password)
+            router.push('/login')
         } catch(err) {
             console.log(err)
             setError('Password must be more than 6 characters')

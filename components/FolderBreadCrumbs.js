@@ -14,7 +14,7 @@ function FolderBreadCrumbs({ currentFolder }) {
             <nav className="px-5 py-3 rounded-md w-full">
                 <ol className="list-reset flex">
                     {path.map((folder, index) => {
-                        console.log(folder)
+                        // console.log(folder)
                         return (
                             <div className='flex' key={index}>
                                 {/* eslint-disable-next-line @next/next/link-passhref */}

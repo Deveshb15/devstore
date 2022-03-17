@@ -61,7 +61,7 @@ export default function AddFolderButton({ currentFolder }) {
 
     return (
         <div>
-            <button onClick={openModal} className='p-4 border rounded-xl shadow-md hover:bg-black hover:text-white'>
+            <button onClick={openModal} className='mx-2 p-4 border rounded-xl shadow-md hover:bg-black hover:text-white'>
                 <BsFolderPlus size={20} />
             </button>
             <Modal
