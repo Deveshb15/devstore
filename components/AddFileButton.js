@@ -1,8 +1,11 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { useAuth } from '../context/AuthContext';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storage, database } from '../config/firebase'
 import { addDoc } from 'firebase/firestore';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { BsCloudUploadFill } from 'react-icons/bs'
 
@@ -12,11 +15,8 @@ export default function AddFileButton({ currentFolder }) {
 
     const { user } = useAuth()
 
-    const [loading, setLoading] = useState(false)
-
     function handleUpload(e) {
         e.preventDefault()
-        setLoading(true)
 
         const file = e.target.files[0]
 
@@ -31,7 +31,7 @@ export default function AddFileButton({ currentFolder }) {
         : `${parentPath}/${currentFolder.name}/${file.name}`
 
         const storageRef = ref(storage, `/files/${user.uid}/${filePath}`)
-        uploadBytes(storageRef, file).then((snapshot) => {
+        const uploadTask = uploadBytes(storageRef, file).then((snapshot) => {
             // console.log("Uploaded")
             // console.log(snapshot)
             getDownloadURL(snapshot.ref).then(async(url) => {
@@ -44,16 +44,40 @@ export default function AddFileButton({ currentFolder }) {
                     userId: user.uid
                 })
             })
-        }).catch((err) => console.log(err)).finally(() => setLoading(false))
-        // setLoading(false)
-    }
+        }).catch((err) => console.log(err))
 
-    console.log(loading)
+        // toast.success('🦄 Wow so easy!', {
+        //     position: "top-center",
+        //     autoClose: 5000,
+        //     hideProgressBar: false,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        // });
+        toast.promise(uploadTask, {
+            pending: 'File Uploading...',
+            success: 'File Uploaded.',
+            error: 'File not uploaded!!',
+        })
+    }
 
     return (
         <label className='mx-2 p-4 border rounded-xl shadow-md hover:bg-black hover:text-white cursor-pointer'>
             <BsCloudUploadFill size={20} />
             <input type="file" onChange={currentFolder && handleUpload} style={{opacity: 0, left: '-9999px', position: 'absolute'}}  />
+            <ToastContainer
+                theme='dark'
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </label>
     )
 }
