@@ -20,7 +20,7 @@ const Login = () => {
 
         try {
             await signup(data.email, data.password)
-            router.push('/login')
+            router.push('/folder')
         } catch(err) {
             console.log(err)
             setError('Password must be more than 6 characters')

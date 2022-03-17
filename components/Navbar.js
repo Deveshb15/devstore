@@ -27,9 +27,9 @@ const Navbar = () => {
 						{/* eslint-disable-next-line @next/next/link-passhref */}
 						<Link
 							href="/"
-							className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-black"
+							className="text-base font-extrabold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-black"
 						>
-							<button>DevStore</button>
+							<button className="text-base font-extrabold">DevStore</button>
 						</Link>
 					</div>
 					<div
