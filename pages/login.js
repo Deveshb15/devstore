@@ -19,7 +19,7 @@ const Login = () => {
         try {
 
             await login(data.email, data.password)
-            router.push('/dashboard')
+            router.push('/folder')
         } catch(err) {
             console.log(err)
             setError('User doesn\'t exist')

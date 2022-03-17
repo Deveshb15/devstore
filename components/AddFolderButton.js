@@ -6,6 +6,8 @@ import { useAuth } from '../context/AuthContext';
 
 import { BsFolderPlus } from 'react-icons/bs'
 
+import { ROOT_FOLDER } from '../hooks/useFolder'
+
 
 Modal.setAppElement('#__next')
 const customStyles = {
@@ -40,11 +42,17 @@ export default function AddFolderButton({ currentFolder }) {
 
         if(currentFolder == null) return 
 
+        let path = [...currentFolder.path]
+        if(currentFolder !== ROOT_FOLDER) {
+            path.push({name: currentFolder.name, id: currentFolder.id})
+        }
+
         await addDoc(database.folders, {
             name,
             userId: user.uid,
             createdAt: new Date(),
-            parentId: currentFolder.id
+            parentId: currentFolder.id,
+            path: path
         })
 
         setName("")
@@ -53,8 +61,8 @@ export default function AddFolderButton({ currentFolder }) {
 
     return (
         <div>
-            <button onClick={openModal} className='p-3 border rounded-xl hover:bg-black hover:text-white'>
-                <BsFolderPlus />
+            <button onClick={openModal} className='p-4 border rounded-xl shadow-md hover:bg-black hover:text-white'>
+                <BsFolderPlus size={20} />
             </button>
             <Modal
                 isOpen={modalIsOpen}
@@ -71,11 +79,12 @@ export default function AddFolderButton({ currentFolder }) {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             className='border rounded-xl p-3' 
-                            required />
+                            required
+                            autoFocus />
                     </div>
                     <div className='flex justify-end'>
                         <button onClick={closeModal} className='mx-2 p-3 border rounded-xl hover:bg-black hover:text-white'>Close</button>
-                        <button type='submit' className='mx-2 p-3 border rounded-xl hover:bg-black hover:text-white'>Add Folder</button>
+                        <button type='submit' className='mx-2 p-3 border rounded-xl bg-black text-white hover:bg-gray-300 hover:text-black'>Add Folder</button>
                     </div>
                 </form>
             </Modal>

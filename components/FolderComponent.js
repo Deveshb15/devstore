@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { BsFillFolderFill } from 'react-icons/bs'
 
-export default function Folder({ folder }) {
+export default function FolderComponent({ folder }) {
     return (
         <div className='flex my-2 py-2 px-2'>
             {/* eslint-disable-next-line @next/next/link-passhref */}

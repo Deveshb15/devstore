@@ -1,11 +1,27 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import { useEffect } from "react"
+import { useAuth } from "../context/AuthContext"
+import Link from 'next/link'
+import { useRouter } from "next/router"
 
 export default function Home() {
   // console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
+  const { user } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if(!user) {
+      router.push('/login')
+    } else {
+      router.push('/folder')
+    }
+  })
+
   return (
     <div>
-      <h1 className="text-2xl font-bold">Hello</h1>
+      Got to 
+      <Link href="/login">
+        /login
+      </Link>
     </div>
   )
 }

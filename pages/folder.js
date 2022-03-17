@@ -2,21 +2,24 @@ import React from 'react'
 
 import AddFolderButton from '../components/AddFolderButton'
 import useFolder from '../hooks/useFolder'
-import Folder from '../components/Folder'
+import FolderComponent from '../components/FolderComponent'
+import FolderBreadCrumbs from '../components/FolderBreadCrumbs'
 
-const Dashboard = () => {
+const Folder = () => {
 
-    const { folder, childFolders} = useFolder("erQqq5fGwSbPYmMLhniB")
+    const { folder, childFolders} = useFolder(null)
     // console.log(folder)
-
     return (
         <div className='m-2'>
-            <AddFolderButton currentFolder={folder} />
+            <div className='flex items-center justify-between pr-8'>
+                <FolderBreadCrumbs currentFolder={folder} />
+                <AddFolderButton currentFolder={folder} />
+            </div>
             <div className='flex'>
                 {childFolders.length > 0 && (
                     childFolders.map(childFolder => (
                         <div key={childFolder.id}>
-                            <Folder folder={childFolder} />
+                            <FolderComponent folder={childFolder} />
                         </div>
                     ))
                 )}
@@ -25,4 +28,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default Folder

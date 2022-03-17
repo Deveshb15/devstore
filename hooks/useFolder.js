@@ -10,7 +10,7 @@ const  ACTIONS = {
     SET_CHILD_FOLDERS: 'set-child-folders',
 }
 
-const ROOT_FOLDER = { name : 'Root', id: null, path: []}
+export const ROOT_FOLDER = { name : 'Root', id: null, path: []}
 
 function reducer(state, { type, payload}) {
     switch(type) {
@@ -87,7 +87,7 @@ export default function useFolder(folderId=null, folder=null) {
             database.folders,
             where("parentId", "==", folderId),
             where("userId", "==", user.uid),
-        //  orderBy("createdAt")
+            orderBy("createdAt")
         )
 
         const unsubscribe = onSnapshot(ref, snapshot => {
@@ -100,7 +100,7 @@ export default function useFolder(folderId=null, folder=null) {
         return () => {
             unsubscribe()
         }
-      }, [folderId, user])
+    }, [folderId, user])
 
     return state
 }
